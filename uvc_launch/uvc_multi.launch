@@ -1,0 +1,23 @@
+<launch> 
+<arg name="device1" default="/dev/video0"/>
+<arg name="device2" default="/dev/video1"/>
+
+<node name="uvc_camera_node1" pkg="uvc_camera" type="uvc_stereo_node" output="screen">
+    <param name="left/device" value="$(arg device1)" />
+    <param name="left/width" value="1280" />
+    <param name="left/height" value="720" />
+    <param name="left/frame_rate" value="300" />
+    <param name="left/exposure" value="0" />
+    <param name="left/gain" value="100" /> 
+
+    <param name="right/device" value="$(arg device2)" />
+    <param name="right/width" value="1280" />
+    <param name="right/height" value="720" />
+    <param name="right/frame_rate" value="300" />
+    <param name="right/exposure" value="0" />
+    <param name="right/gain" value="100" /> 
+</node>
+
+
+
+</launch>
