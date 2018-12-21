@@ -4,7 +4,7 @@
     <param name="device" value="$(arg device)" />
     <param name="width" value="1280" />
     <param name="height" value="720" />
-    <param name="frame_rate" value="300" />
+    <param name="frame_rate" value="="300" />
     <param name="exposure" value="0" />
     <param name="gain" value="100" /> 
 </node>
