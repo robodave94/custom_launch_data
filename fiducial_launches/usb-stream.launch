@@ -1,0 +1,35 @@
+<launch>
+  <arg name="camera" default="/camera"/>
+  <arg name="rate" default="24.0"/>
+  <arg name="device_id" default="0"/>
+  <arg name="frame_id" default="camera"/>
+<node name="cv_camera" pkg="cv_camera" type="cv_camera_node" output="screen" >
+    <param name="rate" value="$(arg rate)"/>
+    <param name="device_id" value="$(arg device_id)"/>
+    <param name="frame_id" value="$(arg frame_id)"/>
+    <remap from="/cv_camera/image_raw" to="$(arg camera)"/>
+  </node>
+
+<node name="aruco" pkg="aruco_detect" type="aruco_detect">
+<param name="dictionary" type="int" value="7"/>
+<param name="fiducial_len" type="double" value="0.14"/>
+
+</node>
+
+
+<arg name="publish_tf" default="true"/>
+<arg name="do_pose_estimation" default="false"/>
+
+
+<node type="fiducial_slam" pkg="fiducial_slam" output="screen"
+name="fiducial_slam">
+<param name="map_file" value="$(env HOME)/.ros/slam/map.txt" />
+<param name="map_frame" value="map" />
+<param name="base_frame" value="base_link" />
+<param name="future_date_transforms" value="0.0" />
+<param name="publish_6dof_pose" value="false" />
+<param name="do_pose_estimation" value="$(arg do_pose_estimation)"/>
+<param name="fiducial_len" value="0.36"/>   <!-- 0.36m -->
+<remap from="/camera_info" to="/camera/camera_info"/>
+</node>
+</launch>
